@@ -93,10 +93,22 @@ export function TimelineSection() {
             return (
               <button
                 key={chapter.id}
+                id={`tab-${chapter.id}`}
                 type="button"
                 role="tab"
                 aria-selected={active}
+                aria-controls={`panel-${chapter.id}`}
+                tabIndex={active ? 0 : -1}
                 onClick={() => setActiveIndex(idx)}
+                onKeyDown={(e) => {
+                  if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    handleNext();
+                  } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    handlePrev();
+                  }
+                }}
                 className={`flex-1 min-w-[120px] px-4 py-2.5 rounded-lg text-left transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9E2A2B] ${
                   active
                     ? 'bg-[#FAF9F6] text-[#1A1817] shadow-sm'
@@ -125,7 +137,9 @@ export function TimelineSection() {
         {/* Active Chapter Stage */}
         <div
           key={activeChapter.id}
+          id={`panel-${activeChapter.id}`}
           role="tabpanel"
+          aria-labelledby={`tab-${activeChapter.id}`}
           className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch bg-[#FAF9F6] rounded-2xl border border-[#E5E0D8] p-5 sm:p-8"
         >
           <div className="lg:col-span-5 flex flex-col">

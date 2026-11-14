@@ -7,6 +7,7 @@ interface ResilientImageProps {
   className?: string;
   objectPosition?: 'center' | 'top';
   fallbackTitle?: string;
+  loading?: 'eager' | 'lazy';
 }
 
 export function ResilientImage({
@@ -15,6 +16,7 @@ export function ResilientImage({
   className = '',
   objectPosition = 'center',
   fallbackTitle = 'Memory',
+  loading = 'eager',
 }: ResilientImageProps) {
   const [hasError, setHasError] = useState(false);
 
@@ -35,6 +37,8 @@ export function ResilientImage({
     <img
       src={src}
       alt={alt}
+      loading={loading}
+      decoding="async"
       referrerPolicy="no-referrer"
       onError={() => setHasError(true)}
       className={`${objectPosition === 'top' ? 'object-top' : 'object-center'} ${className}`}

@@ -28,6 +28,9 @@ export function GallerySection() {
   useEffect(() => {
     if (!lightboxPhoto) return;
 
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setLightboxPhoto(null);
@@ -42,7 +45,10 @@ export function GallerySection() {
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [lightboxPhoto, activeLightboxIndex, filteredPhotos]);
 
   const openNext = () => {
@@ -120,6 +126,7 @@ export function GallerySection() {
                   <ResilientImage
                     src={photo.src}
                     alt={photo.alt}
+                    loading="lazy"
                     objectPosition={photo.objectPosition}
                     fallbackTitle={photo.title}
                     className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
