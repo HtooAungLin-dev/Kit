@@ -1,0 +1,6 @@
+{
+  "name": "For Kit — Since November 2018",
+  "description": "A personal love letter, interactive timeline, and photo gallery dedicated to Kit since November 2018.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
